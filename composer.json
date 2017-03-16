@@ -5,8 +5,7 @@
 	"keywords": [
 		"DIQA", "Utilities"
 	],
-	"version" : "1.0",
-	
+		
 	"license": "GPL v2.0",
 	"authors": [
 		{
@@ -15,6 +14,7 @@
 		}
 	],
 	"require": {
+		"composer/installers": "1.*,>=1.0.1",
 		"mediawiki/semantic-media-wiki": "~2.4"
 	},
 	

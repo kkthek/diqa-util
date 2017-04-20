@@ -109,33 +109,6 @@ class RequestUtils {
         return $content;
     }
 
-    /**
-     * turns the page identified by the request to PDF and stores it in a temporary file
-     * returns the filename of the resulting PDF document
-     *
-     * @param String $url
-     * @param boolean Set HTTP header fields if true
-     * @return String pointing to the filename of the created PDF document
-     * @throws Exception
-     */
-    public static function exportPDFAction($url, $setHeader = true) {
-		global $wgServer;
-        global $wgServerHTTP;
-
-        global $wgODBTechnicalUser;
-        global $wgODBTechnicalUserPassword;
-
-        $sessionCookie = RequestUtils::getSessionCookieForExportUser( $wgODBTechnicalUser, $wgODBTechnicalUserPassword );
-
-        if ($setHeader) {
-	        header ( "Content-type: application/pdf" );
-	        header ( sprintf ( "Content-Disposition: attachment; filename=\"odbwiki_export_%s.pdf\"", date ( "Ymd_His" ) ) );
-	        header ( "Pragma: no-cache" );
-	        header ( "Expires: 0" );
-        }
-
-        $fullUrl = str_replace($wgServer, $wgServerHTTP, $url);
-        return  PDFUtils::createPDF($fullUrl, $sessionCookie);
-    }
+   
 
 }

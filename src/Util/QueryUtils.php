@@ -164,7 +164,7 @@ class QueryUtils {
 	 * Returns a list of categories this page is a member of.
 	 * Results will include hidden categories
 	 *
-	 * @return array of Title
+	 * @return array \Title
 	 */
 	public static function getCategories($pageName) {
 	    $title = Title::newFromText ( $pageName );

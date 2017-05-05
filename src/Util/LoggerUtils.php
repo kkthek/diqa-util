@@ -39,7 +39,7 @@ class LoggerUtils {
 	 * @param string $extension leave blank to write to the general log-file
 	 * @param string $keepMessages, cf. LOG_LEVELS
 	 */
-	public function __construct($id, $extension='', $keepMessages = 'OFF') {
+	public function __construct($id, $extension='', $suffix = '', $keepMessages = 'OFF') {
 		global $IP;
 
 		$this->id = $id;
@@ -50,7 +50,11 @@ class LoggerUtils {
 		if($extension == '') {
 			$this->logpath = '';
 		} else {
-			$this->logpath = "$IP/extensions/$extension/logFiles/{$extension}_$date.log";
+			if ($suffix != '') {
+				$this->logpath = "$IP/extensions/$extension/logFiles/{$extension}_{$suffix}_$date.log";
+			} else  {
+				$this->logpath = "$IP/extensions/$extension/logFiles/{$extension}_$date.log";
+			}
 			static::ensureDirExists ($this->logpath);
 		}
 

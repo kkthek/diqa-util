@@ -10,3 +10,11 @@ $messages['de'] = array(
 
 );
 
+$magicWords = array();
+
+$magicWords['en'] = array(
+		'stripTags' => array (0, 'stripTags'),
+
+);
+
+$magicWords['de'] = $magicWords['en'];

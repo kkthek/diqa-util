@@ -34,3 +34,26 @@ $wgExtensionCredits[ 'diqa' ][] = array(
 $dir = dirname( __FILE__ );
 
 $wgExtensionMessagesFiles['DIQAutil'] = $dir . '/DIQAutil.i18n.php';
+$wgHooks['ParserFirstCallInit'][] = 'DIQA\Util\ParserFunctions\StripTags::registerParserHooks';
+$wgHooks['ParserFirstCallInit'][] = 'wfDIQAUtilRegisterModules';
+
+$wgExtensionFunctions[] = function() {
+	
+	global $wgResourceModules;
+	
+	$wgResourceModules['ext.diqa.util'] = array(
+			'localBasePath' => __DIR__,
+			'remoteExtPath' => 'Util',
+			'scripts' => array(
+					'scripts/util.js'
+			),
+			'styles' => 'skins/util.css',
+			'dependencies' => array()
+	);
+};
+
+function wfDIQAUtilRegisterModules() {
+	global $wgOut;
+	
+	$wgOut->addModules('ext.diqa.util');
+}

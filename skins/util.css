@@ -1,0 +1,37 @@
+.globalSpinner{
+    position:fixed;
+    z-index:1000;/* make higher than whatever is on the page */
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    margin:auto;
+    width:100px;
+    height:100px;
+}
+
+/*
+ * Fix for jquery-ui. see bug #817
+ */
+.ui-widget-content, .ui-widget-header  {
+        background: #ffffff !important;
+}
+
+.ui-state-default {
+        background: #e6e6e6 !important;
+}
+
+.ui-state-active {
+        background: #ffffff !important;
+}
+
+div.ui-datepicker .ui-state-hover {
+        background: #ffffff !important;
+}
+
+/*
+ * Make normal edit link invisible
+ */
+#p-contentnavigation li#ca-edit {
+	display: none;
+}

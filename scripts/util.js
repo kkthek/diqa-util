@@ -42,5 +42,34 @@
 		return that;
 	};
 	
+	DIQAUTIL.Util.openInFancyBox = function () {
+		
+	        $('a.imageOverlay').each(function(){
+		        $(this).click( function(){
+					jQuery.fancybox({
+						'href' : $(this).attr('href'),
+						'width' : '100%',
+						'height' : '100%',	
+						'border-width' : '0px',
+						'autoScale' : true,
+						'autoDimensions' : true,
+						'transitionIn' : 'none',
+						'transitionOut' : 'none',
+						'type' : 'iframe',
+						'overlayColor' : '#222',
+						'overlayOpacity' : '1.0',
+						'hideOnContentClick' : true,
+						'scrolling' : 'auto'
+					});
+					return false;
+		        });
+	        });
+	};
+
+	
+	$(function(){
+		DIQAUTIL.Util.openInFancyBox();
+	});	
 
 })(jQuery);
+

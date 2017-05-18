@@ -46,20 +46,36 @@ class LoggerUtils {
 		$this->keepMessages = $keepMessages;
 
 		$date = (new \DateTime('now', new \DateTimeZone(date_default_timezone_get())))->format("Y-m-d");
-
+		
+		$wgDIQAUtilLogDir = self::getLogDir();
+		
 		if($extension == '') {
 			$this->logpath = '';
 		} else {
 			if ($suffix != '') {
-				$this->logpath = "$IP/extensions/$extension/logFiles/{$extension}_{$suffix}_$date.log";
+				$this->logpath = "$wgDIQAUtilLogDir/$extension/{$extension}_{$suffix}_$date.log";
 			} else  {
-				$this->logpath = "$IP/extensions/$extension/logFiles/{$extension}_$date.log";
+				$this->logpath = "$wgDIQAUtilLogDir/$extension/{$extension}_$date.log";
 			}
 			static::ensureDirExists ($this->logpath);
 		}
 
-		$this->globalLogpath = "$IP/logs/general_$date.log";
+		$this->globalLogpath = "$wgDIQAUtilLogDir/general_$date.log";
 		static::ensureDirExists ($this->globalLogpath);
+	}
+	
+	/**
+	 * Returns log dir. Configurable by $wgDIQAUtilLogDir.
+	 * Default is $IP/logs
+	 * 
+	 * @return string
+	 */
+	static public function getLogDir() {
+		global $IP, $wgDIQAUtilLogDir;
+		if (!isset($wgDIQAUtilLogDir)) {
+			$wgDIQAUtilLogDir = "$IP/logs";
+		}
+		return $wgDIQAUtilLogDir;
 	}
 
 	/**
@@ -70,6 +86,15 @@ class LoggerUtils {
 		if(!file_exists($logdir)) {
 			mkdir($logdir);
 			chmod($logdir, 0775);
+		}
+		
+		// check if writeable and if not, write a hint in Objectcache
+		$cache = \ObjectCache::getInstance(CACHE_DB);
+		$cache->delete('DIQA.Util.logFileNotWriteable');
+		@touch($filename);
+		if (!is_writeable($filename)) {
+			global $wgDIQAUtilLogDir;
+			$cache->set('DIQA.Util.logFileNotWriteable', $wgDIQAUtilLogDir);
 		}
 	}
 

@@ -37,6 +37,10 @@ $wgExtensionMessagesFiles['DIQAutil'] = $dir . '/DIQAutil.i18n.php';
 $wgHooks['ParserFirstCallInit'][] = 'DIQA\Util\ParserFunctions\StripTags::registerParserHooks';
 $wgHooks['ParserFirstCallInit'][] = 'wfDIQAUtilRegisterModules';
 
+//Change the image links
+$wgHooks['LinkBegin'][] = 'DIQA\Util\FileLinkUtils::ImageOverlayLinkBegin';
+
+
 $wgExtensionFunctions[] = function() {
 	
 	global $wgResourceModules;

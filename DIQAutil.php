@@ -35,6 +35,8 @@ $dir = dirname( __FILE__ );
 
 $wgExtensionMessagesFiles['DIQAutil'] = $dir . '/DIQAutil.i18n.php';
 $wgHooks['ParserFirstCallInit'][] = 'DIQA\Util\ParserFunctions\StripTags::registerParserHooks';
+$wgHooks['ParserFirstCallInit'][] = 'DIQA\Util\ParserFunctions\LatestRevisionComment::registerParserHooks';
+$wgHooks['ParserFirstCallInit'][] = 'DIQA\Util\ParserFunctions\IsUserMemberOfGroup::registerParserHooks';
 $wgHooks['ParserFirstCallInit'][] = 'wfDIQAUtilRegisterModules';
 
 //Change the image links

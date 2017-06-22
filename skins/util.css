@@ -1,6 +1,6 @@
 .globalSpinner{
     position:fixed;
-    z-index:1000;/* make higher than whatever is on the page */
+    z-index:10000;/* make higher than whatever is on the page */
     top:0;
     left:0;
     right:0;

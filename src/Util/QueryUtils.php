@@ -57,6 +57,28 @@ class QueryUtils {
 
 		return $smwStore->getQueryResult( $smwQueryObject );
 	}
+	
+	/**
+	 * @param queryString
+	 * @param printouts
+	 * @param parameters
+	 * @return \SMWQueryResult
+	 */
+	public static function executeCountQuery($queryString, $printouts = array(), $parameters = array()) {
+		SMWQueryProcessor::addThisPrintout( $printouts, $parameters );
+	
+		$smwQueryObject = SMWQueryProcessor::createQuery(
+				$queryString,
+				SMWQueryProcessor::getProcessedParams( $parameters, $printouts ),
+				SMWQueryProcessor::SPECIAL_PAGE,
+				'count',
+				$printouts
+		);
+	
+		$smwStore = ApplicationFactory::getInstance()->getStore();
+	
+		return $smwStore->getQueryResult( $smwQueryObject );
+	}
 
 
 	/**

@@ -22,7 +22,10 @@ class LatestRevisionComment {
 	    $parser->disableCache ();
 	    $titleObj = Title::newFromText( $input ); // titel ist parameter
 	    $article = WikiPage::factory( $titleObj );
-	    $output = LatestRevisionComment::wikitextEncode($article->getComment(Revision::RAW,  null));
+	    $comment = $article->getComment(Revision::RAW,  null);
+	    $output = strip_tags($comment, '');
+	    $output = trim(str_replace(array("\r\n", "\n", "\r", "\n\r", "\t"), ' ', $output));
+	    $output = LatestRevisionComment::wikitextEncode($output);
 	    if (empty($output)) {
 	        $output = "''n/a''";
 	    }

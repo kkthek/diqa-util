@@ -8,10 +8,11 @@ class FileUtils {
 	 * 
 	 * @param string $path
 	 * @param int $line_count
+	 * @param ont $offset (negative value from the end of file)
 	 * @param int $block_size
 	 * @return multitype:
 	 */
-	public static function last_lines($path, $line_count, $block_size = 512){
+	public static function last_lines($path, $line_count, $offset = 0, $block_size = 512){
 		$lines = array();
 	
 		// we will always have a fragment of a non-complete line
@@ -19,8 +20,9 @@ class FileUtils {
 		$leftover = "";
 	
 		$fh = fopen($path, 'r');
+		$storeOffset = $offset;
 		// go to the end of the file
-		fseek($fh, 0, SEEK_END);
+		fseek($fh, $offset, SEEK_END);
 		do{
 			// need to know whether we can actually go back
 			// $block_size bytes
@@ -28,12 +30,12 @@ class FileUtils {
 			if(ftell($fh) < $block_size){
 				$can_read = ftell($fh);
 			}
-	
+			$storeOffset -= $can_read;
 			// go back as many bytes as we can
 			// read them to $data and then move the file pointer
 			// back to where we were.
 			fseek($fh, -$can_read, SEEK_CUR);
-			$data = fread($fh, $can_read);
+			$data = @fread($fh, $can_read);
 			$data .= $leftover;
 			fseek($fh, -$can_read, SEEK_CUR);
 	
@@ -52,6 +54,8 @@ class FileUtils {
 		}
 		fclose($fh);
 		// Usually, we will read too many lines, correct that here.
-		return array_slice($lines, 0, $line_count);
+		return [ 'lines' => array_slice($lines, 0, $line_count),
+				 'offset' => $storeOffset 
+		];
 	}
 }

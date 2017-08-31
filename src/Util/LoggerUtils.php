@@ -84,7 +84,7 @@ class LoggerUtils {
 	 static private function ensureDirExists($filename) {
 		$logdir= dirname($filename);
 		if(!file_exists($logdir)) {
-			mkdir($logdir);
+			mkdir($logdir, 0775, true);
 			chmod($logdir, 0775);
 		}
 		

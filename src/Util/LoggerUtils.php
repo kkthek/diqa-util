@@ -1,5 +1,7 @@
 <?php
 namespace DIQA\Util;
+use DateTime;
+use DateTimeZone;
 
 /**
  * @author Michael
@@ -40,34 +42,33 @@ class LoggerUtils {
 	 * @param string $keepMessages, cf. LOG_LEVELS
 	 */
 	public function __construct($id, $extension='', $suffix = '', $keepMessages = 'OFF') {
-		global $IP;
 
 		$this->id = $id;
 		$this->keepMessages = $keepMessages;
 
-		$date = (new \DateTime('now', new \DateTimeZone(date_default_timezone_get())))->format("Y-m-d");
+		$date = (new DateTime('now', new DateTimeZone(date_default_timezone_get())))->format("Y-m-d");
 		
-		$wgDIQAUtilLogDir = self::getLogDir();
+		$logDir = self::getLogDir();
 		
 		if($extension == '') {
 			$this->logpath = '';
 		} else {
 			if ($suffix != '') {
-				$this->logpath = "$wgDIQAUtilLogDir/$extension/{$extension}_{$suffix}_$date.log";
+				$this->logpath = "$logDir/$extension/{$extension}_{$suffix}_$date.log";
 			} else  {
-				$this->logpath = "$wgDIQAUtilLogDir/$extension/{$extension}_$date.log";
+				$this->logpath = "$logDir/$extension/{$extension}_$date.log";
 			}
 			static::ensureDirExists ($this->logpath);
 		}
 
-		$this->globalLogpath = "$wgDIQAUtilLogDir/general_$date.log";
+		$this->globalLogpath = "$logDir/general_$date.log";
 		static::ensureDirExists ($this->globalLogpath);
 	}
 	
 	/**
 	 * Returns log dir. Configurable by $wgDIQAUtilLogDir.
 	 * Default is $IP/logs
-	 * 
+	 *
 	 * @return string
 	 */
 	static public function getLogDir() {

@@ -78,11 +78,11 @@ class ConfigLoader {
     }
     
     private function loadEnvDefault() {
-        return $this->loadJsonFile($this->envDefaultJsonFile, 'MW');
+        return $this->loadJsonFile($this->envDefaultJsonFile);
     }
     
     private function loadEnvJson() {
-        $mw = $this->loadJsonFile($this->envJsonFile, 'MW');
+        $mw = $this->loadJsonFile($this->envJsonFile);
         $apps = $this->loadJsonFile($this->envJsonFile);
         return $mw && $apps;
     }
@@ -94,7 +94,7 @@ class ConfigLoader {
                 try {
                     $jsonString = file_get_contents($fileName);
                     $json = json_decode($jsonString, true);
-                    
+
                     if($json) {
                         $this->processApps($json, $appId);
                     } else {
@@ -175,6 +175,7 @@ class ConfigLoader {
     }
     
     private function error($msg) {
+        //echo "$msg\n";
         //trigger_error($msg);
         //$this->logger->error($msg);
     }
@@ -192,7 +193,6 @@ class ConfigLoader {
     }
 }
 
-// var_dump($GLOBALS);
 // ConfigLoader::test();
 // echo "--------------------------------------\n";
 // var_dump($GLOBALS);

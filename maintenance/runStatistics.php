@@ -25,10 +25,13 @@ class RunStatistics extends Maintenance {
 			$statistics = $this->getStatisticSites();
 			foreach($statistics as $stat) {
 				$this->logger->log("Site: ".$stat['title']->getPrefixedText());
+				
 				$query = $stat['statistikQuery'];
 				$this->logger->log("statistikQuery: ".$query);
+				
 				$template = $stat['statistikTemplate'];
 				$this->logger->log("statistikTemplate: ".$template);
+				
 				$value = $this->doQuery($query, $stat['title']);
 				$this->logger->log("statistikQuery value: ".$value);
 			
@@ -58,7 +61,7 @@ class RunStatistics extends Maintenance {
 			$StatistikQuery = $res [1]->getNextText ( SMW_OUTPUT_WIKI );
 			$StatistikTemplate = $res [2]->getNextText ( SMW_OUTPUT_WIKI );
 			$mwTitle = \Title::newFromText ( $pageID );
-			$result [] = [ 'title' => $mwTitle, 
+			$result [] = [ 'title' => $mwTitle,
 						   'statistikQuery' => urldecode($StatistikQuery),
 						   'statistikTemplate' => urldecode($StatistikTemplate)
 			];
@@ -68,12 +71,11 @@ class RunStatistics extends Maintenance {
 	}
 	
 	/**
-	 * Executes the statistic query. (count-Query!) 
+	 * Executes the statistic query. (count-Query!)
 	 * @param string $query
 	 * @return number
 	 */
 	private function doQuery($query, $title) {
-		
 		if (preg_match('/\{\{#ask:([^}]*)\}\}/', $query, $matches) == 1) {
 			$parts = explode("|", $matches[1]);
 			$query = array_shift($parts);

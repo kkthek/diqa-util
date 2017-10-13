@@ -3,12 +3,10 @@
 namespace DIQA\Util\ParserFunctions;
 
 use Parser;
-use WikiPage;
-use Revision;
 
 /**
  * Parserfunction to remove all HTML tags.
- * 
+ *
  * @author Kai
  *
  */
@@ -28,14 +26,10 @@ class StripTags {
 	
 	/**
 	 * Registers parser hook for MW.
-	 * 
+	 *
 	 * @param Parser $parser
 	 */
 	public static function registerParserHooks(Parser &$parser) {
-		
 		$parser->setFunctionHook('stripTags', 'DIQA\Util\ParserFunctions\StripTags::stripTags');
-		
 	}
-
-	
 }

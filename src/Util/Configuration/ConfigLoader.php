@@ -8,12 +8,22 @@ use Exception;
  * 1. $MW/env-default.json
  * 2. defaultSettings.php (for an extension)
  * 3. $MW/env.json
- * 4. $MW/localVariables.php (for all of MW and extensions)
+ * 4. $MW/LocalVariables.php (for all of MW and extensions)
  *
- * LocalVariables should not touch any configuration from the env*.json files,
- * because env.json will be conigured using the installation tool.
+ * Files coming later in this list will overwrite (and can use) values
+ * from files that come earlier in this list.
+ *
+ * LocalVariables.php should not touch any configuration from the env*.json files,
+ * because env.json will be configured using the installation tool.
+ *
+ * LocalSettings.php should use this ConfigLoader to configure MW and all extensions.
+ *
+ * Apps, that are (also) used outside of the MW-Stack (i.e. that will not go
+ * through LocalSettings.php) should also use this ConfigLoader to initialze
+ * the configuration variables in a consistent way.
  *
  */
+
 class ConfigLoader {
     
     private $mediaWikiPath = '';
@@ -29,10 +39,11 @@ class ConfigLoader {
      *                      root folder of MediaWiki, holding these config files:
      *                      env-default.json, env.json, LocalVariables.php
      *                      do not put the "/" at the end
-     * @param tring $defaultSettingsFile
+     * @param string $defaultSettingsFile
      *                      filename (incl. path) for DefaultSettings.php for an Extension
      * @param array $configVariables
      *                      list of config-variables that must be defined in (one of) the config files
+     *                      used to verify a ConfigLoader properly fetched expected variables
      */
     public function __construct(
             $mediaWikiPath,

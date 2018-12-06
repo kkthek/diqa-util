@@ -15,7 +15,7 @@
 	],
 	"require": {
 		"composer/installers": "1.*,>=1.0.1",
-		"mediawiki/semantic-media-wiki": "~2.4"
+		"mediawiki/semantic-media-wiki": "~3.0"
 	},
 	
 	"autoload": {

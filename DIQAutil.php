@@ -11,7 +11,7 @@ if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'This file is part of a MediaWiki extension, it is not a valid entry point.' );
 }
 
-define( 'DIQA_UTIL_VERSION', '2.0.1' );
+define( 'DIQA_UTIL_VERSION', '2.0.2' );
 
 global $wgVersion;
 global $wgExtensionCredits;

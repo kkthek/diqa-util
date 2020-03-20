@@ -50,9 +50,10 @@ class RunStatistics extends Maintenance {
 		$result = [ ];
 		
 		$StatistikQuery = new \SMWPrintRequest ( \SMWPrintRequest::PRINT_PROP, "StatistikQuery",
-				\SMWPropertyValue::makeUserProperty ( 'StatistikQuery' ) );
+		    SMW\DataValueFactory::getInstance()->newPropertyValueByLabel( 'StatistikQuery' ) );
+		
 		$StatistikTemplate = new \SMWPrintRequest ( \SMWPrintRequest::PRINT_PROP, "StatistikTemplate",
-				\SMWPropertyValue::makeUserProperty ( 'StatistikTemplate' ) );
+		    SMW\DataValueFactory::getInstance()->newPropertyValueByLabel( 'StatistikTemplate' ) );
 		
 		$pages = QueryUtils::executeBasicQuery ( '[[Category:Statistik]]', [$StatistikQuery, $StatistikTemplate ], [] );
 		

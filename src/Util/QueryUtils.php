@@ -16,6 +16,7 @@ use SMW\DIProperty;
 use SMW\DIWikiPage;
 use SMW\StoreFactory;
 use SMW\Query\PrintRequest;
+use SMW\DataValueFactory;
 
 /**
  * Utility class for executing SMW Queries
@@ -205,7 +206,8 @@ class QueryUtils {
 	 * @return a PrintRequest object with the given property name and label
 	 */
 	 public static function newPropertyPrintRequest($propertyName) {
-		return new PrintRequest(PrintRequest::PRINT_PROP, $propertyName, SMWPropertyValue::makeUserProperty($propertyName));
+		return new PrintRequest(PrintRequest::PRINT_PROP, $propertyName, 
+		                  DataValueFactory::getInstance()->newPropertyValueByLabel( $propertyName ));
 	}
 
 }

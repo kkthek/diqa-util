@@ -4,7 +4,6 @@ namespace DIQA\Util;
 use Exception;
 use Http;
 use MWHttpRequest;
-use mikehaertl\wkhtmlto\Pdf;
 use MediaWiki\Logger\LoggerFactory;
 
 /**

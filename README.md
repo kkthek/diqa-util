@@ -1,2 +1,3 @@
 # diqa-util
-General utilities used by DIQA extensions
+General utilities used by DIQA extensions.
+
